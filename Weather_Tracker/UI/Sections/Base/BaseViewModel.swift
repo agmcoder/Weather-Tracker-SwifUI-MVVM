@@ -43,27 +43,20 @@ final class BaseViewModel: @preconcurrency BaseViewModelProtocol, ObservableObje
         self.weatherService = weatherService
         self.searchService = searchService
         self.weatherItems = Set(initialWeatherItems)
-<<<<<<< HEAD
-        updateCurrentState()
-=======
 
-        // Cargar datos desde UserDefaults al iniciar
+        // Load data from UserDefaults on initialization
         if let savedWeather = UserDefaults.standard.loadWeather() {
             self.selectedWeatherItem = savedWeather
             updateCitySelectedState(savedWeather)
         } else {
             updateCurrentState()
         }
->>>>>>> 6293a98 (Local Storage)
     }
 
     // MARK: - Public Methods
     func select(weatherItem: Weather) {
         selectedWeatherItem = weatherItem
-<<<<<<< HEAD
-=======
-        UserDefaults.standard.saveWeather(weatherItem) // Guardar en UserDefaults
->>>>>>> 6293a98 (Local Storage)
+        UserDefaults.standard.saveWeather(weatherItem) // Save to UserDefaults
         updateCitySelectedState(weatherItem)
     }
 
@@ -72,16 +65,14 @@ final class BaseViewModel: @preconcurrency BaseViewModelProtocol, ObservableObje
         do {
             let newWeatherItem = try await weatherService.fetchWeather(for: searchText, additionalParameters: nil)
             weatherItems.insert(newWeatherItem)
-<<<<<<< HEAD
-=======
-            UserDefaults.standard.saveWeather(newWeatherItem) // Guardar en UserDefaults
->>>>>>> 6293a98 (Local Storage)
+            UserDefaults.standard.saveWeather(newWeatherItem) // Save to UserDefaults
             updateSearchingState()
         } catch {
             currentViewState = .error(error.localizedDescription)
         }
-        searchText = "" // Limpia la barra de búsqueda
+        searchText = "" // Clear search bar
     }
+
 
     // MARK: - Private Methods
     private func updateCurrentState() {
